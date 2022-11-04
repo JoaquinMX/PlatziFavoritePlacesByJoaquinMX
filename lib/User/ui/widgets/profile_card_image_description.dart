@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/floating_action_button_green.dart';
+import 'package:untitled1/widgets/floating_action_button_green.dart';
 
 class ProfileCardImageDescription extends StatelessWidget {
   String imageTitle = 'Knuckles Mountains Range';
   String imageActivities = 'Hiking, Water fall hunting, Natural bath, Scenery & Photography';
-  String steps = '123,123,123';
+  int? likes = 404;
   String pathImage = 'assets/img/beach.jpeg';
-  ProfileCardImageDescription(this.imageActivities, this.imageTitle, this.steps, {Key? key}) : super(key: key);
+  ProfileCardImageDescription(this.imageActivities, this.imageTitle, this.likes, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -21,7 +21,7 @@ class ProfileCardImageDescription extends StatelessWidget {
                   offset: Offset(0, 7)
               )]
           ),
-          width: MediaQuery.of(context).size.width * .70,
+          width: MediaQuery.of(context).size.width * .75,
           height: 115,
           child: Container(
             margin: const EdgeInsets.only(
@@ -69,7 +69,7 @@ class ProfileCardImageDescription extends StatelessWidget {
                   ),
                   child:
                   Text(
-                    'Steps $steps',
+                    'Heart $likes',
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                         fontFamily: 'Lato',
@@ -92,7 +92,7 @@ class ProfileCardImageDescription extends StatelessWidget {
             top: 75,
             left: 280
           ),
-          child: FloatingActionButtonGreen(),
+          child: FloatingActionButtonGreen(iconData: Icons.favorite_border, onPressed: () {}),
         )
       ],
     );

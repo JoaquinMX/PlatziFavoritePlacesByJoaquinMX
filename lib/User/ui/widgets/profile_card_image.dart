@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/profile/profile_card_image_description.dart';
+import 'package:untitled1/Place/model/place.dart';
+import 'package:untitled1/User/ui/widgets/profile_card_image_description.dart';
 
 class ProfileCardImage extends StatelessWidget {
 
-  String pathImage = 'assets/img/beach.jpeg';
-  String imageTitle = 'Knuckles Mountains Range';
-  String imageActivities = 'Hiking, Water fall hunting, Natural bath, Scenery & Photography';
-  String steps = '123,123,123';
+  Place place;
 
-  ProfileCardImage(this.steps, this.imageActivities, this.imageTitle, this.pathImage);
+  ProfileCardImage(this.place);
   @override
   Widget build(BuildContext context) {
     final card = Container(
@@ -21,7 +19,7 @@ class ProfileCardImage extends StatelessWidget {
       decoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage(pathImage)
+              image: NetworkImage(place.urlImage)
           ),
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           shape: BoxShape.rectangle,
@@ -41,7 +39,7 @@ class ProfileCardImage extends StatelessWidget {
             bottom: 20
           ),
           child:
-          ProfileCardImageDescription(imageActivities, imageTitle, steps),
+          ProfileCardImageDescription(place.description, place.name, place.likes),
         )
       ],
     );

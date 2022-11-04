@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/button_purple.dart';
+import 'package:untitled1/widgets/button_purple.dart';
 
 class DescriptionPlace extends StatelessWidget {
   String namePlace;
@@ -116,7 +116,7 @@ class DescriptionPlace extends StatelessWidget {
       children: <Widget>[
         title_stars,
         description,
-        ButtonPurple('Navigate')
+        ButtonPurple(onPressed: () {  }, buttonText: 'Navigate')
       ],
     );
   }

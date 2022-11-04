@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:untitled1/User/ui/screens/sign_in_screen.dart';
+import 'firebase_options.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:untitled1/User/bloc/bloc_user.dart';
 import 'platzi_trips.dart';
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -11,48 +20,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: PlatziTrips()
-
-      /*home: Scaffold(
-        appBar: AppBar(
-          title: Text("Hola Mundo"),
-        ),
-        body: Center(
-          child: Stack(
-            children: <Widget>[
-              Image.network('https://pbs.twimg.com/media/DoOQ8WWXgAASxyt.jpg:large'),
-              Center(
-                child: Container(
-                  color: Color.fromRGBO(0, 0, 0, 0.20),
-                  height: 50,
-                ),
-              ),
-              Center(
-                child: Text(
-                    "Yey, si se pudo",
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
-                    textAlign: TextAlign.center
-                ),
-              )
-            ],
-          ),
-        ),
-      )*/
-      //const MyHomePage(title: 'Flutter Demo Home Page'),
+    return BlocProvider(
+        bloc: UserBloc(),
+        child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            //home: PlatziTrips()
+          home: SignInScreen(),
+        )
     );
   }
 }

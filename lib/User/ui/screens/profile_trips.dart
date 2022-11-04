@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:untitled1/profile/profile_card_image.dart';
-import 'package:untitled1/profile/profile_card_image_list.dart';
-import 'profile/profile_basic_info.dart';
-import 'profile/profile_gradient_back.dart';
-import 'profile/profile_interact_buttons.dart';
-import 'profile/profile_card_image_description.dart';
+import 'package:untitled1/User/ui/widgets/profile_card_image.dart';
+import 'package:untitled1/User/ui/widgets/profile_card_image_list.dart';
+import 'package:untitled1/widgets/gradient_back.dart';
+import '../widgets/profile_basic_info.dart';
+import '../widgets/profile_gradient_back.dart';
+import 'package:untitled1/User/ui/widgets/profile_interact_buttons.dart';
+import 'package:untitled1/User/ui/widgets/profile_card_image_description.dart';
 
 String imageTitle = 'Knuckles Mountains Range';
 String imageActivities = 'Hiking, Water fall hunting, Natural bath, Scenery & Photography';
@@ -16,7 +17,7 @@ class ProfileTrips extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        ProfileGradientBack(),
+        GradientBack('Profile', MediaQuery.of(context).size.height * .5),
         Container(
           margin: EdgeInsets.only(
             top: 50,
