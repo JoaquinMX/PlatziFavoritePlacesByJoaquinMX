@@ -45,5 +45,14 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+
+	<key>NSCameraUsageDescription</key>
+    <string>Platzi Trips reuiere tomar una foto. ¿Podemos user tú cámara?</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Platzi Trips reuiere tomar una foto. ¿Podemos user tú cámara?</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Platzi Trips reuiere tomar una foto. ¿Podemos user tú cámara?</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs access to location `when open.</string>
 </dict>
 </plist>

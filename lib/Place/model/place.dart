@@ -6,16 +6,20 @@ class Place {
   String name;
   String description;
   String urlImage;
-  int? likes;
-  User? userOwner;
+  int likes;
+  bool? liked;
+  final List<User>? usersLiked;
+  //User? userOwner;
 
   Place({
     Key? key,
     required this.name,
     required this.description,
     required this.urlImage,
-    this.userOwner,
-    this.likes,
+    //this.userOwner,
+    required this.likes,
+    this.liked,
+    this.usersLiked,
     this.uid,
   });
 }

@@ -57,8 +57,10 @@ class ProfileCardImageDescription extends StatelessWidget {
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
                         fontSize: 12,
-                        color: Colors.grey
+                        color: Colors.grey,
+                      overflow: TextOverflow.fade,
                     ),
+                    maxLines: 2,
                   ),
                 ),
                 Container(
@@ -87,6 +89,7 @@ class ProfileCardImageDescription extends StatelessWidget {
     return Stack(
       children: <Widget>[
         cardContents,
+       /*
         Container(
           margin: EdgeInsets.only(
             top: 75,
@@ -94,6 +97,8 @@ class ProfileCardImageDescription extends StatelessWidget {
           ),
           child: FloatingActionButtonGreen(iconData: Icons.favorite_border, onPressed: () {}),
         )
+
+        */
       ],
     );
   }

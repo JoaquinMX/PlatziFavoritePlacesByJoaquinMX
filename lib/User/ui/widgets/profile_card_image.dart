@@ -4,9 +4,9 @@ import 'package:untitled1/User/ui/widgets/profile_card_image_description.dart';
 
 class ProfileCardImage extends StatelessWidget {
 
-  Place place;
+  final Place place;
 
-  ProfileCardImage(this.place);
+  const ProfileCardImage({super.key, required this.place});
   @override
   Widget build(BuildContext context) {
     final card = Container(

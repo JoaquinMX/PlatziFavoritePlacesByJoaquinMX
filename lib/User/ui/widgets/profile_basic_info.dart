@@ -9,31 +9,14 @@ class ProfileBasicInfo extends StatelessWidget {
   late UserBloc userBloc;
   late User user;
 
+  ProfileBasicInfo({super.key, required this.user});
+
   @override
   Widget build(BuildContext context) {
-    userBloc = BlocProvider.of<UserBloc>(context);
 
-    return StreamBuilder(
-      stream: userBloc.streamFirebase,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        switch (snapshot.connectionState) {
-            case ConnectionState.none:
-              return CircularProgressIndicator();
-              break;
-            case ConnectionState.waiting:
-              return CircularProgressIndicator();
-              break;
-            case ConnectionState.active:
-              return showProfileData(snapshot);
-              break;
-            case ConnectionState.done:
-              return showProfileData(snapshot);
-              break;
-          }
-        }
-    );
+    return UserInfo(user);
   }
-
+/*
   Widget showProfileData(AsyncSnapshot snapshot) {
     if (!snapshot.hasData || snapshot.hasError) {
       print("Not logged");
@@ -64,4 +47,5 @@ class ProfileBasicInfo extends StatelessWidget {
 
     }
   }
+  */
 }

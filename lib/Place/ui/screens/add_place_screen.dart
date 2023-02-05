@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:untitled1/Place/model/place.dart';
 import 'package:untitled1/Place/ui/widgets/card_image.dart';
 import 'package:untitled1/Place/ui/widgets/title_input_location.dart';
@@ -77,12 +79,12 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
               children: <Widget>[
                 Container( // Foto
                   alignment: Alignment.center,
-                  child: CardImageWithFabIcon(0, pathImage: 'assets/img/mountain_stars.jpeg', width: MediaQuery.of(context).size.width * .95, height: 250, onPressedFabIcon: () {}, iconData: Icons.camera_alt),
+                  child: CardImageWithFabIcon(0, pathImage: widget.image!.path, width: MediaQuery.of(context).size.width * .95, height: 250, onPressedFabIcon: () {}, iconData: Icons.camera_alt),
                 ),
                 Container( // TextField Title
                   margin: EdgeInsets.only(
-                    top: 20.0,
-                    bottom: 20.0),
+                      top: 20.0,
+                      bottom: 20.0),
                   child: TextInput(1, hintText: "Title", inputType: TextInputType.text, controller: _controllerTitlePlace),
                 ),
                 TextInput(4, hintText: 'Description', inputType: TextInputType.multiline, controller: _controllerDescriptionPlace),
@@ -93,20 +95,39 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                 Container(
                   width: 70.0,
                   child: ButtonPurple(buttonText: "Add Place", onPressed: () {
-                    //Firebase Storage upload
-                    // get the url after uploaded
-                    // Use of Cloud Firestore
-                    // Insert all the object Place in Firestore.
-                    userBloc.updatePlaceData(
-                        Place(
-                            name: _controllerTitlePlace.text,
-                            description: _controllerDescriptionPlace.text,
-                            likes: 0,
-                            
-                            urlImage: '')).whenComplete(() => {
-                              print('termino'),
-                              Navigator.pop(context)
+                    //Get logged user ID
+                    String uid;
+                    String path;
+                    userBloc.currentUser.then((user) {
+                      if(user != null) {
+                        uid = user.uid;
+                        path = "${uid}/${DateTime.now().toString()}.jpg";
+                        userBloc.uploadFile(path, widget.image!)
+                            .then((UploadTask uploadTask) =>  {
+                          uploadTask.then((snapshot) => {
+                            snapshot.ref.getDownloadURL().then((urlImage) => {
+                              // get the url after uploaded
+                              // Use of Cloud Firestore
+                              // Insert all the object Place in Firestore.
+                              userBloc.updatePlaceData(
+                                  Place(
+                                      name: _controllerTitlePlace.text,
+                                      description: _controllerDescriptionPlace.text,
+                                      likes: 0,
+                                      urlImage: urlImage,
+                                    usersLiked: []
+                                  )).whenComplete(() => {
+                                print('termino'),
+                                Navigator.pop(context)
+                              })
+                            })
+                          })
+                        });
+                      }
                     });
+                    //Firebase Storage upload
+
+
                   }),
                 )
               ],

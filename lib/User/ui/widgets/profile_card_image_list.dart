@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:untitled1/Place/model/place.dart';
+import '../../bloc/bloc_user.dart';
+import '../../model/user.dart';
 import 'profile_card_image.dart';
 
 
@@ -10,19 +13,60 @@ var pathImage = ['https://images.unsplash.com/photo-1538964173425-93884d739596?i
 
 class ProfileCardImageList extends StatelessWidget {
 
-  Place place = Place(name: 'Playa Hermosa Ensenada', description: 'Swimming, surfing, spa, sightseeking and fishing!', urlImage: 'https://images.unsplash.com/photo-1538964173425-93884d739596?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80', likes: 13);
-  Place place2 = Place(name: imageTitle[1], description: imageActivities[1], urlImage: pathImage[1], likes: likes[1]);
-  Place place3 = Place(name: imageTitle[2], description: imageActivities[2], urlImage: pathImage[2], likes: likes[2]);
+  late UserBloc userBloc;
+  User user;
+
+  ProfileCardImageList({super.key, required this.user});
   @override
   Widget build(BuildContext context) {
+    userBloc = BlocProvider.of<UserBloc>(context);
+    return StreamBuilder(
+        stream: userBloc.myPlacesListStream(user.uid!),
+        //stream: userBloc.placesStream,
+        builder: (context, AsyncSnapshot snapshot) {
+          switch(snapshot.connectionState) {
+            case ConnectionState.none:
+              print("none");
 
-    return ListView(
-      children: <Widget>[
-        ProfileCardImage(place),
-        ProfileCardImage(place2),
-        ProfileCardImage(place3),
-      ],
+              return CircularProgressIndicator();
+
+              break;
+            case ConnectionState.waiting:
+              print("waiting");
+
+              return CircularProgressIndicator();
+              break;
+            case ConnectionState.active:
+              print("active");
+
+              return ListView(
+                  children: userBloc.buildMyPlaces(snapshot.data.docs)
+              );
+              break;
+            case ConnectionState.done:
+              print("done");
+              return ListView(
+                children: userBloc.buildMyPlaces(snapshot.data.docs)
+              );
+              break;
+            default:
+              return ListView(
+                  children: userBloc.buildMyPlaces(snapshot.data.docs)
+              );
+          }
+        }
+
     );
   }
 
 }
+
+/**
+ * ListView(
+    children: <Widget>[
+    ProfileCardImage(place),
+    ProfileCardImage(place2),
+    ProfileCardImage(place3),
+    ],
+    );
+ */

@@ -1,25 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:untitled1/User/bloc/bloc_user.dart';
+import '../../../User/model/user.dart';
+import '../../model/place.dart';
 import 'card_image.dart';
 
-class CardImageList extends StatelessWidget {
+class CardImageList extends StatefulWidget {
+  late User user;
+
+  CardImageList({super.key, required this.user});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _CardImageList();
+  }
+}
+late UserBloc userBloc;
+
+class _CardImageList extends State<CardImageList> {
 
   @override
   Widget build(BuildContext context) {
+    userBloc = BlocProvider.of<UserBloc>(context);
 
     return Container(
-      height: 350,
-      child: ListView(
+        height: 350,
+        child: StreamBuilder(
+          stream: userBloc.placesStream,
+          builder: (context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return CircularProgressIndicator();
+                break;
+              case ConnectionState.waiting:
+                return CircularProgressIndicator();
+                break;
+              case ConnectionState.active:
+                return listViewPlaces(userBloc.buildPlaces(snapshot.data.docs, widget.user));
+                break;
+              case ConnectionState.done:
+                return listViewPlaces(userBloc.buildPlaces(snapshot.data.docs, widget.user));
+                break;
+              default:
+                return listViewPlaces(userBloc.buildPlaces(snapshot.data.docs, widget.user));
+                break;
+            }
+          },
+        )
+    );
+}
+
+  Widget listViewPlaces(List<Place> places) {
+    void setLiked(Place place) {
+      setState(() {
+        place.liked = !place.liked!;
+        userBloc.likePlace(place, widget.user.uid!);
+      });
+    }
+
+    return ListView(
         padding: EdgeInsets.all(25.0),
         scrollDirection: Axis.horizontal,
-        children: <Widget>[
-          CardImageWithFabIcon(20, pathImage: 'assets/img/beach.jpeg', iconData: Icons.favorite_border, width: 350, height: 250, onPressedFabIcon: () => {}),
-          CardImageWithFabIcon(20, pathImage: 'assets/img/beach_palm.jpeg', iconData: Icons.favorite_border, width: 350, height: 250, onPressedFabIcon: () => {}),
-          CardImageWithFabIcon(20, pathImage: 'assets/img/mountain.jpeg', iconData: Icons.favorite_border, width: 350, height: 250, onPressedFabIcon: () => {}),
-          CardImageWithFabIcon(20, pathImage: 'assets/img/mountain_stars.jpeg', iconData: Icons.favorite_border, width: 350, height: 250, onPressedFabIcon: () => {}),
-          CardImageWithFabIcon(20, pathImage: 'assets/img/river.jpeg', iconData: Icons.favorite_border, width: 350, height: 250, onPressedFabIcon: () => {}),
-          CardImageWithFabIcon(20, pathImage: 'assets/img/sunset.jpeg', iconData: Icons.favorite_border, width: 350, height: 250, onPressedFabIcon: () => {})
-        ],
-      ),
+        children: places.map((place) {
+          IconData iconDataLiked = Icons.favorite;
+          IconData iconDataLike = Icons.favorite_border;
+          return CardImageWithFabIcon(
+              20,
+              pathImage: place.urlImage,
+              width: 350,
+              height: 250,
+              onPressedFabIcon: () {
+                setLiked(place);
+              },
+              iconData: place.liked != null ? place.liked! ? iconDataLiked : iconDataLike : iconDataLike,
+          );
+        }).toList(),
     );
   }
 }

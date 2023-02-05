@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "768364411855",
+    "firebase_url": "https://platzitripsflutter-3c365-default-rtdb.firebaseio.com",
     "project_id": "platzitripsflutter-3c365",
     "storage_bucket": "platzitripsflutter-3c365.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "768364411855-7dvbek540vphlhtapjdteqg5hcrnkhl6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.untitled1",
+            "certificate_hash": "5956204dff4add35039c6f825331a4bf5f4f706d"
+          }
+        },
         {
           "client_id": "768364411855-fiqfg33j867ua6o6id3kuijp9q07tala.apps.googleusercontent.com",
           "client_type": 3
