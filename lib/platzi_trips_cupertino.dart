@@ -17,10 +17,11 @@ class PlatziTripsCupertino extends StatelessWidget {
                     icon: Icon(Icons.home, color: Colors.indigo),
                     label: ""
                 ),
-                BottomNavigationBarItem(
+                /*BottomNavigationBarItem(
                     icon: Icon(Icons.search, color: Colors.indigo),
                     label: ""
                 ),
+                */
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person, color: Colors.indigo),
                     label: ""
@@ -39,12 +40,15 @@ class PlatziTripsCupertino extends StatelessWidget {
                   }
                 );
                 break;
+                /*
               case 1:
                 return CupertinoTabView(
                   builder: (BuildContext context) => SearchTrips(),
                 );
                 break;
-              case 2:
+
+                 */
+              case 1:
                 return CupertinoTabView(
                   builder: (BuildContext context) {
                     return BlocProvider<UserBloc>(

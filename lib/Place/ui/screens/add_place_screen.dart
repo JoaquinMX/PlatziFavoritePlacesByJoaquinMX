@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:untitled1/Place/model/place.dart';
 import 'package:untitled1/Place/ui/widgets/card_image.dart';
-import 'package:untitled1/Place/ui/widgets/title_input_location.dart';
 import 'package:untitled1/User/bloc/bloc_user.dart';
 import 'package:untitled1/User/ui/widgets/text_input.dart';
 import 'package:untitled1/User/ui/widgets/title_header.dart';
@@ -88,10 +86,12 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                   child: TextInput(1, hintText: "Title", inputType: TextInputType.text, controller: _controllerTitlePlace),
                 ),
                 TextInput(4, hintText: 'Description', inputType: TextInputType.multiline, controller: _controllerDescriptionPlace),
-                Container(
+              /*
+              Container(
                   margin: EdgeInsets.only(top: 20.0),
                   child: TextInputLocation(_controllerLocationPlace, iconData: Icons.location_on_outlined, hintText: 'AddLocation'),
                 ),
+                */
                 Container(
                   width: 70.0,
                   child: ButtonPurple(buttonText: "Add Place", onPressed: () {
@@ -115,7 +115,7 @@ class _AddPlaceScreen extends State<AddPlaceScreen> {
                                       description: _controllerDescriptionPlace.text,
                                       likes: 0,
                                       urlImage: urlImage,
-                                    usersLiked: []
+                                      usersLiked: []
                                   )).whenComplete(() => {
                                 print('termino'),
                                 Navigator.pop(context)

@@ -55,6 +55,8 @@ class _CardImageList extends State<CardImageList> {
       setState(() {
         place.liked = !place.liked!;
         userBloc.likePlace(place, widget.user.uid!);
+        place.likes = place.liked! ? place.likes + 1 : place.likes - 1;
+        userBloc.placeSelectedSink.add(place);
       });
     }
 
@@ -64,7 +66,12 @@ class _CardImageList extends State<CardImageList> {
         children: places.map((place) {
           IconData iconDataLiked = Icons.favorite;
           IconData iconDataLike = Icons.favorite_border;
-          return CardImageWithFabIcon(
+          return GestureDetector(
+            onTap: () {
+              print("Click place: ${place.name}");
+              userBloc.placeSelectedSink.add(place);
+            },
+            child: CardImageWithFabIcon(
               20,
               pathImage: place.urlImage,
               width: 350,
@@ -73,6 +80,7 @@ class _CardImageList extends State<CardImageList> {
                 setLiked(place);
               },
               iconData: place.liked != null ? place.liked! ? iconDataLiked : iconDataLike : iconDataLike,
+            ),
           );
         }).toList(),
     );

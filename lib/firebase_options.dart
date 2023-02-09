@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -49,20 +46,33 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAaIu_W1iBcb1FZ6ME1Mp8iMA5RvQnBsrQ',
+    appId: '1:768364411855:web:932fd2631264a6462a70ba',
+    messagingSenderId: '768364411855',
+    projectId: 'platzitripsflutter-3c365',
+    authDomain: 'platzitripsflutter-3c365.firebaseapp.com',
+    databaseURL: 'https://platzitripsflutter-3c365-default-rtdb.firebaseio.com',
+    storageBucket: 'platzitripsflutter-3c365.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDUkvLug3Xr5GdDN8BWfdR8mh7IywA818M',
     appId: '1:768364411855:android:88b5e368a52e2d5a2a70ba',
     messagingSenderId: '768364411855',
     projectId: 'platzitripsflutter-3c365',
+    databaseURL: 'https://platzitripsflutter-3c365-default-rtdb.firebaseio.com',
     storageBucket: 'platzitripsflutter-3c365.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBkYRXF3OdDM149ONG-s8YHYfbgmHLfok4',
-    appId: '1:768364411855:ios:7edc89caac5ccddf2a70ba',
+    appId: '1:768364411855:ios:ba8406f70aa602c52a70ba',
     messagingSenderId: '768364411855',
     projectId: 'platzitripsflutter-3c365',
+    databaseURL: 'https://platzitripsflutter-3c365-default-rtdb.firebaseio.com',
     storageBucket: 'platzitripsflutter-3c365.appspot.com',
+    androidClientId: '768364411855-7dvbek540vphlhtapjdteqg5hcrnkhl6.apps.googleusercontent.com',
     iosClientId: '768364411855-2l0sno9lccj3e0u17jmp9qfcpqtariun.apps.googleusercontent.com',
     iosBundleId: 'com.example.untitled1',
   );

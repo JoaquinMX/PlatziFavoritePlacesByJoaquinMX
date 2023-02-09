@@ -40,7 +40,7 @@ class CardImageWithFabIcon extends StatelessWidget {
                 image:
             pathImage.contains('http')
                 ? CachedNetworkImageProvider(pathImage) as ImageProvider
-                : AssetImage(pathImage)
+                : FileImage(File(pathImage))
 
 
         ),

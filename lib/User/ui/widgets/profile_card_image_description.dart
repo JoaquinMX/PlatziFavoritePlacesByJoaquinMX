@@ -67,7 +67,7 @@ class ProfileCardImageDescription extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(
-                    top: 5,
+                    top: 4,
                   ),
                   child:
                   Text(

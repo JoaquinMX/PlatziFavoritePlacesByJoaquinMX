@@ -69,9 +69,10 @@ class _SignInScreen extends State<SignInScreen> {
                  ),
                ),
              ),
-              ButtonGreen(text: 'Login with Email', onPressed: () {
+              /*ButtonGreen(text: 'Login with Email', onPressed: () {
                 userBloc.signInEmail("joaquinmx@joaquinmx.com", "joaquinmx.com").then((UserCredential user) => print("El usuario es ${user.user?.displayName}"));
               }, height: 50, width: 300),
+              */
               ButtonGreen(text: 'Login with Gmail', onPressed: () {
                 userBloc.signInGoogle().then((UserCredential user) => {
                   userBloc.updateUserData(Model.User(uid: user.user!.uid, name: user.user!.displayName!, email: user.user!.email!, photoURL: user.user!.photoURL!))

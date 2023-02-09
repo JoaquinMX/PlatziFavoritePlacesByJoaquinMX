@@ -1,18 +1,15 @@
+import 'dart:async';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:untitled1/Place/model/place.dart';
 import 'package:untitled1/Place/repository/fierbase_storage_repository.dart';
 import 'package:untitled1/User/repository/auth_repository.dart';
 import 'package:untitled1/User/repository/cloud_firestore_api.dart';
 import 'package:untitled1/User/repository/cloud_firestore_repository.dart';
 import 'package:untitled1/User/model/user.dart' as Model;
-
-import '../../Place/ui/widgets/card_image.dart';
 import '../ui/widgets/profile_card_image.dart';
 
 class UserBloc implements Bloc {
@@ -72,10 +69,13 @@ class UserBloc implements Bloc {
   Future<UploadTask> uploadFile(String path, File image)
     => _firebaseStorageRepository.uploadFile(path, image);
 
+  StreamController placeSelectedStreamController = StreamController();
+  Stream get placeSelectedStream => placeSelectedStreamController.stream;
+  StreamSink get placeSelectedSink => placeSelectedStreamController.sink;
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    placeSelectedStreamController.close();
   }
 
 }

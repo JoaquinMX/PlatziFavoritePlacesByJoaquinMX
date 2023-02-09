@@ -126,8 +126,6 @@ class ProfileTrips extends StatelessWidget {
       );
     }
     else {
-      print("loggedIn");
-      print(snapshot.data);
       var user = User(uid: snapshot.data.uid, name: snapshot.data.displayName, email: snapshot.data.email, photoURL: snapshot.data.photoURL);
 
       return Stack(
